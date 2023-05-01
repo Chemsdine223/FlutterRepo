@@ -97,7 +97,7 @@ class _MapPageState extends State<MapPage> {
                   _currentPosition!.latitude,
                   _currentPosition!.longitude,
                 ),
-                zoom: 8,
+                zoom: 12,
               ),
               nonRotatedChildren: [
                 AttributionWidget.defaultWidget(
