@@ -97,7 +97,7 @@ class _MapPageState extends State<MapPage> {
                   _currentPosition!.latitude,
                   _currentPosition!.longitude,
                 ),
-                zoom: 12,
+                zoom: 15,
               ),
               nonRotatedChildren: [
                 AttributionWidget.defaultWidget(
@@ -109,7 +109,10 @@ class _MapPageState extends State<MapPage> {
                 MarkerLayer(
                   markers: [
                     Marker(
-                      point: LatLng(18.10089, -15.991947409354378),
+                      point: LatLng(
+                        _currentPosition!.latitude,
+                        _currentPosition!.longitude,
+                      ),
                       width: 80,
                       height: 80,
                       builder: (context) => const Icon(

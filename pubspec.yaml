@@ -46,6 +46,10 @@ dependencies:
   pdf: ^3.10.1
   path_provider: ^2.0.14
   open_document: ^1.0.6+2
+  jwt_decoder: ^2.0.1
+  shared_preferences: ^2.1.0
+  equatable: ^2.0.5
+  flutter_spinkit: ^5.2.0
 
 dev_dependencies:
   flutter_test:

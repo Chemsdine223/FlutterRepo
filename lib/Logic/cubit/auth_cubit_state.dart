@@ -1,10 +1,30 @@
 part of 'auth_cubit_cubit.dart';
 
 @immutable
-abstract class AuthCubitState {}
+abstract class AuthCubitState extends Equatable {}
 
-class AuthCubitInitial extends AuthCubitState {}
-class AuthCubitLoading extends AuthCubitState {}
-class AuthCubitLoaded extends AuthCubitState {}
-class AuthCubitError extends AuthCubitState {}
-// class AuthCubitInitial extends AuthCubitState {}
+class AuthCubitInitial extends AuthCubitState {
+  @override
+  List<Object?> get props => [];
+}
+
+class AuthCubitLoading extends AuthCubitState {
+  @override
+  List<Object?> get props => [];
+}
+
+class AuthCubitSuccess extends AuthCubitState {
+  final UserModel userModel;
+
+  AuthCubitSuccess(this.userModel);
+  @override
+  List<Object?> get props => [userModel];
+}
+
+class AuthCubitError extends AuthCubitState {
+  final String errorMsg;
+
+  AuthCubitError(this.errorMsg);
+  @override
+  List<Object?> get props => [errorMsg];
+}

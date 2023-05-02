@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Screens/home.dart';
+import 'Logic/logic.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: Logic(),
     );
   }
 }

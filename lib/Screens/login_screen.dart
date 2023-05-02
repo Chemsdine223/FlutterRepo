@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vaccination/Data/auth/auth_service.dart';
 
 import '../widgets/text_field.dart';
 
@@ -13,8 +14,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isParent = false;
   final String font = 'JetBrainsMono';
   final TextEditingController _nniController = TextEditingController();
-  final TextEditingController _nomController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,19 +63,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     CustomTextField(
-                      fieldName: 'Nom :',
-                      height: MediaQuery.of(context).size.height / 16,
-                      width: MediaQuery.of(context).size.width / 1.1,
-                      controller: _nomController,
-                    ),
-                    CustomTextField(
-                      maxLength: 4,
-                      textInputType: const TextInputType.numberWithOptions(
-                          signed: true, decimal: true),
+                      textInputType: TextInputType.number,
                       fieldName: 'Phone :',
                       height: MediaQuery.of(context).size.height / 16,
                       width: MediaQuery.of(context).size.width / 1.1,
                       controller: _phoneController,
+                    ),
+                    CustomTextField(
+                      maxLength: 200,
+                      textInputType: const TextInputType.numberWithOptions(
+                          signed: true, decimal: true),
+                      fieldName: 'Password :',
+                      height: MediaQuery.of(context).size.height / 16,
+                      width: MediaQuery.of(context).size.width / 1.1,
+                      controller: _passwordController,
                     ),
                   ],
                 ),
@@ -106,8 +108,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       // shape: ShapeBorder(),
                       color: Colors.greenAccent[200],
                       onPressed: () {
-                        // print(isParent);
-                        // print(_nniController.text);
+                        AuthService.signUp(
+                          _nniController.text,
+                          _phoneController.text,
+                          _passwordController.text,
+                        );
                       },
                       child: const Text(
                         'S\'inscrire',

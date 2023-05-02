@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vaccination/Logic/cubit/auth_cubit_cubit.dart';
 
 import '../widgets/text_field.dart';
 
@@ -15,6 +16,7 @@ class _LoginState extends State<Login> {
   final String font = 'JetBrainsMono';
   final TextEditingController _nniController = TextEditingController();
   final TextEditingController _nomController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class _LoginState extends State<Login> {
                   children: [
                     Center(
                       child: CustomTextField(
-                        maxLength: 4,
+                        maxLength: 20,
                         textInputType: const TextInputType.numberWithOptions(
                             signed: true, decimal: true),
                         fieldName: 'Phone :',
@@ -64,79 +66,90 @@ class _LoginState extends State<Login> {
                         controller: _phoneController,
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(
-                          height: 68,
-                          width: 64,
-                          child: TextField(
-                            onChanged: (value) {
-                              if (value.length == 1) {
-                                FocusScope.of(context).nextFocus();
-                              }
-                            },
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(1),
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 68,
-                          width: 64,
-                          child: TextField(
-                            onChanged: (value) {
-                              if (value.length == 1) {
-                                FocusScope.of(context).nextFocus();
-                              }
-                            },
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(1),
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 68,
-                          width: 64,
-                          child: TextField(
-                            onChanged: (value) {
-                              if (value.length == 1) {
-                                FocusScope.of(context).nextFocus();
-                              }
-                            },
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(1),
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 68,
-                          width: 64,
-                          child: TextField(
-                            onChanged: (value) {
-                              if (value.length == 1) {
-                                FocusScope.of(context).nextFocus();
-                              }
-                            },
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(1),
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
+                    Center(
+                      child: CustomTextField(
+                        maxLength: 20,
+                        // textInputType: const TextInputType.numberWithOptions(
+                        //     signed: true, decimal: true),
+                        fieldName: 'Phone :',
+                        height: MediaQuery.of(context).size.height / 16,
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        controller: _passwordController,
+                      ),
+                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //   children: [
+                    //     SizedBox(
+                    //       height: 68,
+                    //       width: 64,
+                    //       child: TextField(
+                    //         onChanged: (value) {
+                    //           if (value.length == 1) {
+                    //             FocusScope.of(context).nextFocus();
+                    //           }
+                    //         },
+                    //         textAlign: TextAlign.center,
+                    //         keyboardType: TextInputType.number,
+                    //         inputFormatters: [
+                    //           LengthLimitingTextInputFormatter(1),
+                    //           FilteringTextInputFormatter.digitsOnly,
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     SizedBox(
+                    //       height: 68,
+                    //       width: 64,
+                    //       child: TextField(
+                    //         onChanged: (value) {
+                    //           if (value.length == 1) {
+                    //             FocusScope.of(context).nextFocus();
+                    //           }
+                    //         },
+                    //         textAlign: TextAlign.center,
+                    //         keyboardType: TextInputType.number,
+                    //         inputFormatters: [
+                    //           LengthLimitingTextInputFormatter(1),
+                    //           FilteringTextInputFormatter.digitsOnly,
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     SizedBox(
+                    //       height: 68,
+                    //       width: 64,
+                    //       child: TextField(
+                    //         onChanged: (value) {
+                    //           if (value.length == 1) {
+                    //             FocusScope.of(context).nextFocus();
+                    //           }
+                    //         },
+                    //         textAlign: TextAlign.center,
+                    //         keyboardType: TextInputType.number,
+                    //         inputFormatters: [
+                    //           LengthLimitingTextInputFormatter(1),
+                    //           FilteringTextInputFormatter.digitsOnly,
+                    //         ],
+                    //       ),
+                    //     ),
+                    //     SizedBox(
+                    //       height: 68,
+                    //       width: 64,
+                    //       child: TextField(
+                    //         onChanged: (value) {
+                    //           if (value.length == 1) {
+                    //             FocusScope.of(context).nextFocus();
+                    //           }
+                    //         },
+                    //         textAlign: TextAlign.center,
+                    //         keyboardType: TextInputType.number,
+                    //         inputFormatters: [
+                    //           LengthLimitingTextInputFormatter(1),
+                    //           FilteringTextInputFormatter.digitsOnly,
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ],
+                    // )
                   ],
                 ),
               ),
@@ -149,6 +162,8 @@ class _LoginState extends State<Login> {
                       // shape: ShapeBorder(),
                       color: Colors.greenAccent[200],
                       onPressed: () {
+                        context.read<AuthCubitCubit>().login(
+                            _phoneController.text, _passwordController.text);
                         // print(isParent);
                         // print(_nniController.text);
                       },
