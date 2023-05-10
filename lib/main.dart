@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'Logic/logic.dart';
+import 'package:vaccination/Logic/logic.dart';
 
 void main() async {
   runApp(const MyApp());

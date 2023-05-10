@@ -27,19 +27,25 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
             //     wordSpacing: 1,
             //   ),
             // ),
-            Expanded(
-              child: PageView(
-                scrollDirection: Axis.vertical,
-                children: const [
-                  VaccinationCard(
-                    color: Colors.grey,
-                  ),
-                  VaccinationCard(
-                    color: Colors.red,
-                  ),
-                ],
-              ),
-            ),
+            // Expanded(
+            //   child: PageView(
+            //     scrollDirection: Axis.vertical,
+            //     children: const [
+            //       VaccinationCard(
+            //         color: Colors.grey,
+            //         centre: '',
+            //         nom: '',
+            //         prenom: '',
+            //       ),
+            //       VaccinationCard(
+            //         color: Colors.red,
+            //         centre: '',
+            //         nom: '',
+            //         prenom: '',
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -51,7 +51,7 @@ class _MapPageState extends State<MapPage> {
       throw e.toString();
     }
 
-    // print(_currentPosition);
+    print(_currentPosition);
 
     return position;
   }
@@ -84,10 +84,10 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: FloatingActionButton(onPressed: () async {
-      //   final p = await _determinePosition();
-      //   print(p);
-      // }),
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        final p = await _determinePosition();
+        print(p);
+      }),
       backgroundColor: Colors.white,
       body: _currentPosition == null
           ? const Center(child: CircularProgressIndicator())

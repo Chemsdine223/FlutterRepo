@@ -16,10 +16,28 @@ class AuthCubitCubit extends Cubit<AuthCubitState> {
 
     try {
       final response = await AuthService.signIn(phone, password);
-      emit(AuthCubitSuccess(response));
+      final vaccination = await VaccinationRepo.getVaccines();
+      emit(AuthCubitSuccess(response, vaccination));
     } catch (e) {
-      print(e);
-      emit(AuthCubitError(e.toString()));
+      // print(e);
+      emit(AuthCubitError('Something went wrong'));
     }
+  }
+
+  Future<void> getVaccination() async {}
+
+  void logOut() {
+    AuthService.clearTokens();
+    emit(AuthCubitInitial());
+  }
+
+  void signUpScreen() {
+    AuthService.clearTokens();
+    emit(SignUpScreen());
+  }
+
+  void goHome() {
+    // AuthService.clearTokens();
+    emit(AuthCubitInitial());
   }
 }

@@ -1,147 +1,62 @@
-import 'dart:convert';
-
-class UserModel {
+class Vaccination {
   final int id;
-  final String nom;
-  final String prenom;
-  final String nni;
+  final int nni;
   final String nomVaccination;
   final String centre;
-  final String doseNumber;
-  final String doseAdministre;
+  final int doseNumber;
+  final int doseAdministre;
   final String dateDernierDose;
   final String status;
   final String wilaya;
   final String moughataa;
 
+  Vaccination({
+    required this.id,
+    required this.nni,
+    required this.nomVaccination,
+    required this.centre,
+    required this.doseNumber,
+    required this.doseAdministre,
+    required this.dateDernierDose,
+    required this.status,
+    required this.wilaya,
+    required this.moughataa,
+  });
 
-
-
-
-
-
-  UserModel(
-    this.id,
-    this.nom,
-    this.prenom,
-    this.nni,
-    this.nomVaccination,
-    this.centre,
-    this.doseNumber,
-    this.doseAdministre,
-    this.dateDernierDose,
-    this.status,
-    this.wilaya,
-    this.moughataa,
-  );
-
-  UserModel copyWith({
-    int? id,
-    String? nom,
-    String? prenom,
-    String? nni,
-    String? nomVaccination,
-    String? centre,
-    String? doseNumber,
-    String? doseAdministre,
-    String? dateDernierDose,
-    String? status,
-    String? wilaya,
-    String? moughataa,
-  }) {
-    return UserModel(
-      id ?? this.id,
-      nom ?? this.nom,
-      prenom ?? this.prenom,
-      nni ?? this.nni,
-      nomVaccination ?? this.nomVaccination,
-      centre ?? this.centre,
-      doseNumber ?? this.doseNumber,
-      doseAdministre ?? this.doseAdministre,
-      dateDernierDose ?? this.dateDernierDose,
-      status ?? this.status,
-      wilaya ?? this.wilaya,
-      moughataa ?? this.moughataa,
+  factory Vaccination.fromJson(Map<String, dynamic> json) {
+    return Vaccination(
+      id: json['id'],
+      nni: json['nni'],
+      nomVaccination: json['nom_vaccination'],
+      centre: json['centre'],
+      doseNumber: json['dose_number'],
+      doseAdministre: json['dose_administre'],
+      dateDernierDose: json['date_dernier_dose'],
+      status: json['status'],
+      wilaya: json['wilaya'],
+      moughataa: json['moughataa'],
     );
   }
+}
 
-  Map<String, dynamic> toMap() {
-    final result = <String, dynamic>{};
-  
-    result.addAll({'id': id});
-    result.addAll({'nom': nom});
-    result.addAll({'prenom': prenom});
-    result.addAll({'nni': nni});
-    result.addAll({'nomVaccination': nomVaccination});
-    result.addAll({'centre': centre});
-    result.addAll({'doseNumber': doseNumber});
-    result.addAll({'doseAdministre': doseAdministre});
-    result.addAll({'dateDernierDose': dateDernierDose});
-    result.addAll({'status': status});
-    result.addAll({'wilaya': wilaya});
-    result.addAll({'moughataa': moughataa});
-  
-    return result;
-  }
+class UserModel {
+  final int id;
+  final String nom;
+  final String prenom;
+  final int nni;
+  UserModel({
+    required this.id,
+    required this.nom,
+    required this.prenom,
+    required this.nni,
+  });
 
-  factory UserModel.fromMap(Map<String, dynamic> map) {
+  factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      map['id']?.toInt() ?? 0,
-      map['nom'] ?? '',
-      map['prenom'] ?? '',
-      map['nni'] ?? '',
-      map['nomVaccination'] ?? '',
-      map['centre'] ?? '',
-      map['doseNumber'] ?? '',
-      map['doseAdministre'] ?? '',
-      map['dateDernierDose'] ?? '',
-      map['status'] ?? '',
-      map['wilaya'] ?? '',
-      map['moughataa'] ?? '',
+      id: json['id'],
+      nom: json['nom'],
+      prenom: json['prenom'],
+      nni: json['nni'],
     );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source));
-
-  @override
-  String toString() {
-    return 'UserModel(id: $id, nom: $nom, prenom: $prenom, nni: $nni, nomVaccination: $nomVaccination, centre: $centre, doseNumber: $doseNumber, doseAdministre: $doseAdministre, dateDernierDose: $dateDernierDose, status: $status, wilaya: $wilaya, moughataa: $moughataa)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-  
-    return other is UserModel &&
-      other.id == id &&
-      other.nom == nom &&
-      other.prenom == prenom &&
-      other.nni == nni &&
-      other.nomVaccination == nomVaccination &&
-      other.centre == centre &&
-      other.doseNumber == doseNumber &&
-      other.doseAdministre == doseAdministre &&
-      other.dateDernierDose == dateDernierDose &&
-      other.status == status &&
-      other.wilaya == wilaya &&
-      other.moughataa == moughataa;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-      nom.hashCode ^
-      prenom.hashCode ^
-      nni.hashCode ^
-      nomVaccination.hashCode ^
-      centre.hashCode ^
-      doseNumber.hashCode ^
-      doseAdministre.hashCode ^
-      dateDernierDose.hashCode ^
-      status.hashCode ^
-      wilaya.hashCode ^
-      moughataa.hashCode;
   }
 }

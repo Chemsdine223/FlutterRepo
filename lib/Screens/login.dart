@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vaccination/Logic/cubit/auth_cubit_cubit.dart';
@@ -57,6 +58,7 @@ class _LoginState extends State<Login> {
                   children: [
                     Center(
                       child: CustomTextField(
+                        obscurity: false,
                         maxLength: 20,
                         textInputType: const TextInputType.numberWithOptions(
                             signed: true, decimal: true),
@@ -68,10 +70,11 @@ class _LoginState extends State<Login> {
                     ),
                     Center(
                       child: CustomTextField(
+                        obscurity: true,
                         maxLength: 20,
                         // textInputType: const TextInputType.numberWithOptions(
                         //     signed: true, decimal: true),
-                        fieldName: 'Phone :',
+                        fieldName: 'Password :',
                         height: MediaQuery.of(context).size.height / 16,
                         width: MediaQuery.of(context).size.width / 1.1,
                         controller: _passwordController,
@@ -170,6 +173,31 @@ class _LoginState extends State<Login> {
                       child: const Text(
                         'Se connecter',
                       ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    context.read<AuthCubitCubit>().signUpScreen();
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Vous n\'avez pas de compte ? ',
+                      style: const TextStyle(color: Colors.black),
+                      children: [
+                        TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () =>
+                                context.read<AuthCubitCubit>().signUpScreen(),
+                          text: 'Créez un compte',
+                          style: const TextStyle(color: Colors.teal),
+                        ),
+                      ],
                     ),
                   ),
                 ),

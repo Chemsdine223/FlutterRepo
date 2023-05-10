@@ -15,8 +15,12 @@ class AuthCubitLoading extends AuthCubitState {
 
 class AuthCubitSuccess extends AuthCubitState {
   final UserModel userModel;
+  final Vaccination vaccination;
 
-  AuthCubitSuccess(this.userModel);
+  AuthCubitSuccess(
+    this.userModel,
+    this.vaccination,
+  );
   @override
   List<Object?> get props => [userModel];
 }
@@ -27,4 +31,12 @@ class AuthCubitError extends AuthCubitState {
   AuthCubitError(this.errorMsg);
   @override
   List<Object?> get props => [errorMsg];
+}
+
+class SignUpScreen extends AuthCubitState {
+  // final String errorMsg;
+
+  SignUpScreen();
+  @override
+  List<Object?> get props => [];
 }

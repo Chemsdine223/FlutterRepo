@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:vaccination/Data/auth/auth_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vaccination/Logic/cubit/auth_cubit_cubit.dart';
 
 import '../widgets/text_field.dart';
 
@@ -27,25 +29,34 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 // color: Colors.red,
                 height: MediaQuery.of(context).size.height / 2.6,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Center(
-                      child: Image.asset(
-                        'Img/vaccinated.png',
-                        height: MediaQuery.of(context).size.height / 3,
-                      ),
-                    ),
-                    const Text(
-                      'Vacciné',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontFamily: 'JetBrainsMono',
-                      ),
-                    ),
+                child: BlocConsumer<AuthCubitCubit, AuthCubitState>(
+                  listener: (context, state) {
+                    // if (state is AuthCubitError) {
 
-                    // Text('NNI'),
-                  ],
+                    // }
+                  },
+                  builder: (context, state) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Center(
+                          child: Image.asset(
+                            'Img/vaccinated.png',
+                            height: MediaQuery.of(context).size.height / 3,
+                          ),
+                        ),
+                        const Text(
+                          'Vacciné',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontFamily: 'JetBrainsMono',
+                          ),
+                        ),
+
+                        // Text('NNI'),
+                      ],
+                    );
+                  },
                 ),
               ),
               SizedBox(
@@ -56,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Center(
                       child: CustomTextField(
+                        obscurity: true,
                         fieldName: 'NNI :',
                         height: MediaQuery.of(context).size.height / 16,
                         width: MediaQuery.of(context).size.width / 1.1,
@@ -63,6 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     CustomTextField(
+                      obscurity: true,
                       textInputType: TextInputType.number,
                       fieldName: 'Phone :',
                       height: MediaQuery.of(context).size.height / 16,
@@ -70,6 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _phoneController,
                     ),
                     CustomTextField(
+                      obscurity: true,
                       maxLength: 200,
                       textInputType: const TextInputType.numberWithOptions(
                           signed: true, decimal: true),
@@ -78,24 +92,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: MediaQuery.of(context).size.width / 1.1,
                       controller: _passwordController,
                     ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width / 12, top: 2),
-                child: Row(
-                  children: [
-                    const Text('Êtes vous un parent ?'),
-                    Checkbox(
-                      value: isParent,
-                      onChanged: (bool? t) {
-                        setState(() {
-                          isParent = !isParent;
-                        });
-                      },
-                    ),
-                    // const Text('Êtes vous un parent ?'),
                   ],
                 ),
               ),
@@ -108,11 +104,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       // shape: ShapeBorder(),
                       color: Colors.greenAccent[200],
                       onPressed: () {
-                        AuthService.signUp(
-                          _nniController.text,
-                          _phoneController.text,
-                          _passwordController.text,
-                        );
+                        // AuthService.signUp(
+                        //   _nniController.text,
+                        //   _phoneController.text,
+                        //   _passwordController.text,
+                        // );
                       },
                       child: const Text(
                         'S\'inscrire',
@@ -120,7 +116,33 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-              )
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width / 12, top: 8),
+                child: Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      context.read<AuthCubitCubit>().goHome();
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'Vous avez de compte ? ',
+                        style: const TextStyle(color: Colors.black),
+                        children: [
+                          TextSpan(
+                            recognizer: TapGestureRecognizer()
+                              ..onTap =
+                                  () => context.read<AuthCubitCubit>().goHome(),
+                            text: 'Connectez vous !',
+                            style: const TextStyle(color: Colors.teal),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

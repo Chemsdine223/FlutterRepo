@@ -9,6 +9,7 @@ import '../Models/user.dart';
 //refresh url
 
 const baseUrl = 'http://127.0.0.1:8000/';
+// const baseUrl = 'http://192.168.101.18:8000/';
 const login = '$baseUrl/login_P/';
 const signUpUrl = '$baseUrl/patient_rg/';
 const refreshUrl = '$baseUrl/refresh/';
@@ -27,13 +28,13 @@ class AuthService {
     );
 
     final data = jsonDecode(response.body);
-    print(data);
+    print('$data 22');
     accessToken = data['access'];
     id = data['id'].toString();
 
     if (response.statusCode == 200) {
-      print(response);
-      final user = await UserRepository.getUserData();
+      print('${response.body} signIn');
+      final user = UserModel.fromJson(data);
       return user;
     } else {
       throw Exception('Something went wrong');
@@ -56,10 +57,11 @@ class AuthService {
         ));
 
     print(response.statusCode);
+    final data = await jsonDecode(response.body);
 
     if (response.statusCode == 200) {
       await AuthService.signIn(phone, password);
-      final user = await UserRepository.getUserData();
+      final user = UserModel.fromJson(data);
       return user;
     } else {
       throw Exception(response.body);
@@ -110,8 +112,8 @@ class AuthService {
   }
 }
 
-class UserRepository {
-  static Future<UserModel> getUserData() async {
+class VaccinationRepo {
+  static Future<Vaccination> getVaccines() async {
     if (!AuthService.isAuthenticated()) {
       await AuthService.loadTokens();
       await AuthService.refresh();
@@ -125,16 +127,19 @@ class UserRepository {
       },
     );
 
-    final data = jsonDecode(response.body);
-    print(data);
-
     if (response.statusCode == 200) {
-      final user = UserModel.fromJson(data);
+      final data = jsonDecode(response.body);
+
+      print('$data ==============');
+
+      final vaccination = Vaccination.fromJson(data);
+
+      print('$vaccination this is the user data helloooooo');
 
       await AuthService.saveTokens();
-      return user;
+      return vaccination;
     } else {
-      throw data['message'].toString();
+      throw 'message';
     }
   }
 }
